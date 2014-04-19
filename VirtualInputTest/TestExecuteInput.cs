@@ -30,6 +30,24 @@ namespace VirtualInputTest
 			Assert.LessOrEqual(resultPosition.Y, positionY + 1, "Y座標が違う");
 		}
 
+		public async Task MouseMoveCommand_Wrapper(int positionX, int positionY)
+		{
+			var ei = new ExecuteInput();
+			await ei.Execute((wrapper) =>
+			{
+				wrapper.MouseMove(positionX, positionY);
+			}
+			);
+
+			//実行後の座標を取得して比較
+			var resultPosition = Cursor.Position;
+
+			Assert.GreaterOrEqual(resultPosition.X, positionX - 1, "X座標が違う");
+			Assert.LessOrEqual(resultPosition.X, positionX + 1, "X座標が違う");
+			Assert.GreaterOrEqual(resultPosition.Y, positionY - 1, "Y座標が違う");
+			Assert.LessOrEqual(resultPosition.Y, positionY + 1, "Y座標が違う");
+		}
+
 		[TestCase(500)]
 		[TestCase(1000)]
 		public async Task ThreadSleepCommand(int interval)
@@ -81,6 +99,74 @@ namespace VirtualInputTest
 
 			var ei = new ExecuteInput();
 			await ei.Execute(eventList);
+		}
+
+		public async Task MouseClickCommand_Wrapper_Common(Point p, MouseButtons mouseButtons)
+		{
+			//テスト手順
+			//1.フォーム内のどこかに移動
+			//  ※せめてボタンがない所に移動しないと左クリックのテストができない(ボタン押しまくるから)
+			//2.クリックを実施
+			//  このタイミングで元のフォーム側でクリックイベントが呼ばれるはず
+			//  ここで結果を確かめる
+			//  ※このメソッドで結果の確認は行わない(というよりできない)
+			//3.1秒間スリープ
+			//  フォーム側のクリックイベントが呼ばれる前に非同期処理が終了しちゃうと
+			//  テストできないので
+
+			var eventList = new List<object>();
+			eventList.Add(new MouseMoveCommand(p.X, p.Y));
+			eventList.Add(new MouseClickCommand(mouseButtons));
+			eventList.Add(new ThreadSleepCommand(1000));
+
+			var ei = new ExecuteInput();
+			await ei.Execute(eventList);
+			await ei.Execute((wrapper) =>
+			{
+				wrapper.MouseMove(p);
+				wrapper.MouseClick(mouseButtons);
+				wrapper.ThreadSleep(1000);
+			});
+		}
+
+		public async Task MouseClickCommand_Wrapper_EachOther(Point p, MouseButtons mouseButtons)
+		{
+			//テスト手順
+			//1.フォーム内のどこかに移動
+			//  ※せめてボタンがない所に移動しないと左クリックのテストができない(ボタン押しまくるから)
+			//2.クリックを実施
+			//  このタイミングで元のフォーム側でクリックイベントが呼ばれるはず
+			//  ここで結果を確かめる
+			//  ※このメソッドで結果の確認は行わない(というよりできない)
+			//3.1秒間スリープ
+			//  フォーム側のクリックイベントが呼ばれる前に非同期処理が終了しちゃうと
+			//  テストできないので
+
+			var eventList = new List<object>();
+			eventList.Add(new MouseMoveCommand(p.X, p.Y));
+			eventList.Add(new MouseClickCommand(mouseButtons));
+			eventList.Add(new ThreadSleepCommand(1000));
+
+			var ei = new ExecuteInput();
+			await ei.Execute(eventList);
+			await ei.Execute((wrapper) =>
+			{
+				wrapper.MouseMove(p);
+				switch(mouseButtons){
+					case MouseButtons.Right:
+						wrapper.RightButtonClick();
+						break;
+					case MouseButtons.Left:
+						wrapper.LeftButtonClick();
+						break;
+					case MouseButtons.Middle:
+						wrapper.MiddleButtonClick();
+						break;
+					default:
+						break;
+				}
+				wrapper.ThreadSleep(1000);
+			});
 		}
 
 		[TestCase(MouseButtons.None)]

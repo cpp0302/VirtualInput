@@ -48,8 +48,13 @@
     <Compile Include="MouseClickCommand.cs" />
     <Compile Include="MouseMoveCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Structs.cs" />
+    <Compile Include="Win32\HardwareInput.cs" />
+    <Compile Include="Win32\KeyboardInput.cs" />
+    <Compile Include="Win32\MouseInput.cs" />
+    <Compile Include="Win32\SendInputParameter.cs" />
     <Compile Include="ThreadSleepCommand.cs" />
+    <Compile Include="VirtualInputWrapper.cs" />
+    <Compile Include="Win32\User32.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

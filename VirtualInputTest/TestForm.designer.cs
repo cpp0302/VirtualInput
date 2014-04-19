@@ -39,6 +39,11 @@
 			this.buttonRightClick = new System.Windows.Forms.Button();
 			this.buttonLeftClick = new System.Windows.Forms.Button();
 			this.buttonMiddleClick = new System.Windows.Forms.Button();
+			this.radioButtonEventList = new System.Windows.Forms.RadioButton();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.radioButtonWrapperCommon = new System.Windows.Forms.RadioButton();
+			this.radioButtonWrapperEachOther = new System.Windows.Forms.RadioButton();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// buttonMouseMove
@@ -131,11 +136,57 @@
 			this.buttonMiddleClick.UseVisualStyleBackColor = true;
 			this.buttonMiddleClick.Click += new System.EventHandler(this.buttonClick_Click);
 			// 
+			// radioButtonEventList
+			// 
+			this.radioButtonEventList.AutoSize = true;
+			this.radioButtonEventList.Location = new System.Drawing.Point(6, 18);
+			this.radioButtonEventList.Name = "radioButtonEventList";
+			this.radioButtonEventList.Size = new System.Drawing.Size(71, 16);
+			this.radioButtonEventList.TabIndex = 7;
+			this.radioButtonEventList.TabStop = true;
+			this.radioButtonEventList.Text = "EventList";
+			this.radioButtonEventList.UseVisualStyleBackColor = true;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.radioButtonWrapperEachOther);
+			this.groupBox1.Controls.Add(this.radioButtonWrapperCommon);
+			this.groupBox1.Controls.Add(this.radioButtonEventList);
+			this.groupBox1.Location = new System.Drawing.Point(110, 47);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(200, 100);
+			this.groupBox1.TabIndex = 8;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "groupBox1";
+			// 
+			// radioButtonWrapperCommon
+			// 
+			this.radioButtonWrapperCommon.AutoSize = true;
+			this.radioButtonWrapperCommon.Location = new System.Drawing.Point(6, 40);
+			this.radioButtonWrapperCommon.Name = "radioButtonWrapperCommon";
+			this.radioButtonWrapperCommon.Size = new System.Drawing.Size(129, 16);
+			this.radioButtonWrapperCommon.TabIndex = 7;
+			this.radioButtonWrapperCommon.TabStop = true;
+			this.radioButtonWrapperCommon.Text = "Wrapper(共通メソッド)";
+			this.radioButtonWrapperCommon.UseVisualStyleBackColor = true;
+			// 
+			// radioButtonWrapperEachOther
+			// 
+			this.radioButtonWrapperEachOther.AutoSize = true;
+			this.radioButtonWrapperEachOther.Location = new System.Drawing.Point(6, 62);
+			this.radioButtonWrapperEachOther.Name = "radioButtonWrapperEachOther";
+			this.radioButtonWrapperEachOther.Size = new System.Drawing.Size(129, 16);
+			this.radioButtonWrapperEachOther.TabIndex = 7;
+			this.radioButtonWrapperEachOther.TabStop = true;
+			this.radioButtonWrapperEachOther.Text = "Wrapper(個別メソッド)";
+			this.radioButtonWrapperEachOther.UseVisualStyleBackColor = true;
+			// 
 			// TestForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(435, 367);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.buttonMiddleClick);
 			this.Controls.Add(this.buttonLeftClick);
 			this.Controls.Add(this.buttonRightClick);
@@ -147,6 +198,8 @@
 			this.Controls.Add(this.buttonMouseMove);
 			this.Name = "TestForm";
 			this.Text = "TestForm";
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -164,5 +217,9 @@
 		private System.Windows.Forms.Button buttonRightClick;
 		private System.Windows.Forms.Button buttonLeftClick;
 		private System.Windows.Forms.Button buttonMiddleClick;
+		private System.Windows.Forms.RadioButton radioButtonEventList;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.RadioButton radioButtonWrapperEachOther;
+		private System.Windows.Forms.RadioButton radioButtonWrapperCommon;
 	}
 }

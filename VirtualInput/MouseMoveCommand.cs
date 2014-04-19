@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using VirtualInput.Win32;
 
 namespace VirtualInput
 {
@@ -26,8 +23,8 @@ namespace VirtualInput
 			var parameters = new SendInputParameter[1];
 
 			//スクリーンの範囲は (0, 0) - (dx, dy) - (65535, 65535) で定義されているらしい
-			parameters[0].type = ExecuteInput.INPUT_MOUSE;
-			parameters[0].mi.dwFlags = ExecuteInput.MOUSEEVENTF_MOVE | ExecuteInput.MOUSEEVENTF_ABSOLUTE;
+			parameters[0].type = User32.INPUT_MOUSE;
+			parameters[0].mi.dwFlags = User32.MOUSEEVENTF_MOVE | User32.MOUSEEVENTF_ABSOLUTE;
 			parameters[0].mi.dx = (int)Math.Round(this.Point.X * (65535.0 / Screen.PrimaryScreen.Bounds.Width));
 			parameters[0].mi.dy = (int)Math.Round(this.Point.Y * (65535.0 / Screen.PrimaryScreen.Bounds.Height));
 			parameters[0].mi.mouseData = 0;

@@ -36,7 +36,15 @@ namespace VirtualInputTest
 			var y = int.Parse(this.textBoxPositionY.Text);
 
 			TestExecuteInput tei = new TestExecuteInput();
-			await tei.MouseMoveCommand(x, y);
+			//選択しているラジオボタンによって呼ぶテストメソッドを決める
+			if (radioButtonEventList.Checked)
+			{
+				await tei.MouseMoveCommand(x, y);
+			}
+			else if (radioButtonWrapperCommon.Checked || radioButtonWrapperEachOther.Checked)
+			{
+				await tei.MouseMoveCommand_Wrapper(x, y);
+			}
 
 			this.mouseCursor = Cursor.Position;
 			UpdateTextInfo();
@@ -97,7 +105,20 @@ namespace VirtualInputTest
 			this.clickMouseButtons = mouseButtons;
 
 			var tei = new TestExecuteInput();
-			await tei.MouseClickCommand(point, mouseButtons);
+
+			//選択しているラジオボタンによって呼ぶテストメソッドを決める
+			if (radioButtonEventList.Checked)
+			{
+				await tei.MouseClickCommand(point, mouseButtons);
+			}
+			else if (radioButtonWrapperCommon.Checked)
+			{
+				await tei.MouseClickCommand_Wrapper_Common(point, mouseButtons);
+			}
+			else if (radioButtonWrapperEachOther.Checked)
+			{
+				await tei.MouseClickCommand_Wrapper_EachOther(point, mouseButtons);
+			}
 
 			this.isClickTest = false;
 		}
